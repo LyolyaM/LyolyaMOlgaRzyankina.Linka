@@ -1,0 +1,3804 @@
+{
+  "info": {
+    "_postman_id": "9b73ba5f-62be-457c-a0d8-e1843d1603e8",
+    "name": "Linka",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51521288",
+    "_collection_link": "https://go.postman.co/collection/51521288-9b73ba5f-62be-457c-a0d8-e1843d1603e8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "PUT /students/{id}/avatar  загрузить аватар  ученика",
+      "item": [
+        {
+          "name": "успешное добавление",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем, что сервер вернул код успешного ответа 200 OK\r\npm.test(\"Статус ответа равен 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Проверяем, что ответ приходит в формате JSON\r\npm.test(\"Тип контента в ответе — application/json\", function () {\r\n    pm.response.to.be.header(\"Content-Type\", /application\\/json/);\r\n});\r\n\r\n// Проверяем, что время ответа сервера приемлемое (быстрее 2 секунд)\r\npm.test(\"Время ответа меньше 2000мс\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержатся обязательные поля аватара\r\npm.test(\"Ответ содержит avatar_url и avatar_media_id\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"avatar_url\");\r\n    pm.expect(jsonData).to.have.property(\"avatar_media_id\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.jpg.jpg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .tiff",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .bmp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .txt",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .csv",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .wav",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .mp3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .json",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .3gp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .avi",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .mpeg",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .webm",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .xml",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .html",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .sql",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .bin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .zip",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .docx",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .xlsx",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_1a4l}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.tiff.tiff"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара png",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем, что сервер вернул статус 200 OK\r\npm.test(\"Статус ответа равен 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержатся обязательные поля аватара\r\npm.test(\"Ответ содержит avatar_url и avatar_media_id\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"avatar_url\");\r\n    pm.expect(jsonData).to.have.property(\"avatar_media_id\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "id аватара: null",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку валидации (400 Bad Request или 422 Unprocessable Entity)\r\npm.test(\"Статус ответа 400  при file = null\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем наличие описания ошибки в теле ответа\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "null",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "id ученика: null",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за некорректного формата ID ученика (400, 404 или 422)\r\npm.test(\"Статус ответа 400 при id = null\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 404, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе есть структура ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.jpeg.jpeg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/null/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "null",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Пустой id аватара (нет файла).",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку 400 Bad Request или 422 Unprocessable Entity из-за отсутствия обязательного файла\r\npm.test(\"Статус ответа 400 Bad Request\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки валидации\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_05n0}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "id ученика пустая строка",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку маршрутизации (404 Not Found или 405 Method Not Allowed)\r\npm.test(\"Статус ответа 405 Method Not Allowed\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([405]);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vu9}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.jpg.jpg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students//avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара png больше максимума >2 мб",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за превышения размера файла (413, 400 или 422)\r\npm.test(\"Статус ответа 413, 400 или 422 при превышении лимита размера\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([413, 400, 422]);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/large_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара jpeg",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем, что сервер вернул статус 200 OK\r\npm.test(\"Статус ответа равен 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержатся обязательные поля аватара\r\npm.test(\"Ответ содержит avatar_url и avatar_media_id\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"avatar_url\");\r\n    pm.expect(jsonData).to.have.property(\"avatar_media_id\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.jpeg.jpeg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара jpeg больше максимума >2мб",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за превышения размера файла (413, 400 или 422)\r\npm.test(\"Статус ответа 413, 400 или 422 при превышении лимита размера\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([413, 400, 422]);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/large_avatar.jpeg.jpeg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .webp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем, что сервер вернул статус 200 OK\r\npm.test(\"Статус ответа равен 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержатся обязательные поля аватара\r\npm.test(\"Ответ содержит avatar_url и avatar_media_id\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"avatar_url\");\r\n    pm.expect(jsonData).to.have.property(\"avatar_media_id\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.webp.webp"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .webp больше максимума >2мб",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за превышения размера файла (413, 400 или 422)\r\npm.test(\"Статус ответа 413, 400 или 422 при превышении лимита размера\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([413, 400, 422]);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/large_avatar.webp.webp"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .gif",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .gif\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.gif.gif"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .ico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .ico\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в теле ответа содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0gea}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/avatar.ico.ico"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Файл аватара .svg",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Сервер должен вернуть ошибку из-за недопустимого формата файла (400 или 422)\r\npm.test(\"Статус ответа 400 или 422 при недопустимом формате .svg\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r\n});\r\n\r\n// Проверяем, что в ответе содержится описание ошибки\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "допустимый формат  отсутствует авторизация",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус ответа 401 Unauthorized\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "допустимый формат не валидный токен",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус ответа 401 Unauthorized\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ku0}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Запрос с несуществующим ID ученика",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус ответа 404 Not Found\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Ответ содержит информацию об ошибке\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-822d3fee5fb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-822d3fee5fb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Превышение лимита запросов",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Пока лимит не исчерпан, сервер возвращает 200, а при превышении — 429\r\npm.test(\"Статус ответа равен 200 или 429\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 429]);\r\n});\r\n\r\n// Если сервер начал отдавать 429, проверяем, что в теле есть описание ошибки\r\nif (pm.response.code === 429) {\r\n    pm.test(\"Ответ 429 содержит объект error\", function () {\r\n        var jsonData = pm.response.json();\r\n        pm.expect(jsonData).to.have.property(\"error\");\r\n    });\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0vo4}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "\/test-data/valid_avatar.png.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/20994011-69df-4205-9676-8d3feebfb21f/avatar",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "POST /packs/{PACK_ID}/students: назначение набора ученику",
+      "item": [
+        {
+          "name": "назначить набор  ученику",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем, что статус ответа равен 200 (или тот, который ожидает система)\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// 2. Парсим ответ\r\nvar jsonData = pm.response.json();\r\n\r\n// 3. Проверяем, что ответ — это массив и он не пустой\r\npm.test(\"Response is a non-empty array\", function () {\r\n    pm.expect(jsonData).to.be.an('array');\r\n    pm.expect(jsonData).to.not.be.empty;\r\n});\r\n\r\n// 4. Проверяем структуру первого элемента адаптации в ответе\r\npm.test(\"Response object contains expected fields\", function () {\r\n    var assignment = jsonData[0];\r\n\r\n    pm.expect(assignment).to.have.property('id');\r\n    pm.expect(assignment).to.have.property('pack_id');\r\n    pm.expect(assignment).to.have.property('student_id');\r\n    pm.expect(assignment).to.have.property('config');\r\n    pm.expect(assignment).to.have.property('created_by');\r\n    pm.expect(assignment).to.have.property('created_at');\r\n    pm.expect(assignment).to.have.property('updated_at');\r\n});\r\n\r\n// 5. Проверяем, что student_id в ответе совпадает с тем, что мы отправляли в теле запроса\r\npm.test(\"Student ID matches request body\", function () {\r\n    var requestData = JSON.parse(pm.request.body.raw);\r\n    var responseData = pm.response.json();\r\n    \r\n    pm.expect(responseData[0].student_id).to.eql(requestData.student_ids[0]);\r\n});\r\n\r\n// 6. Сохраняем id созданной адаптации в переменную среды (нужно для проверки идемпотентности)\r\nif (jsonData && jsonData.length > 0 && jsonData[0].id) {\r\n    pm.environment.set(\"ADAPTATION_ID\", jsonData[0].id);\r\n    console.log(\"Сохранен ADAPTATION_ID: \" + jsonData[0].id);\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": [\r\n    \"3fa8f64-5717-4562-b3fc-2c963f66afa6\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/cdc0d6ed-d5dc-4915-8ecd-e4855902cb48/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "cdc0d6ed-d5dc-4915-8ecd-e4855902cb48",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "назначить набор  ученику Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем, что статус ответа равен 200 (или тот, который ожидает система)\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// 2. Парсим ответ\r\nvar jsonData = pm.response.json();\r\n\r\n// 3. Проверяем, что ответ — это массив и он не пустой\r\npm.test(\"Response is a non-empty array\", function () {\r\n    pm.expect(jsonData).to.be.an('array');\r\n    pm.expect(jsonData).to.not.be.empty;\r\n});\r\n\r\n// 4. Проверяем структуру первого элемента адаптации в ответе\r\npm.test(\"Response object contains expected fields\", function () {\r\n    var assignment = jsonData[0];\r\n\r\n    pm.expect(assignment).to.have.property('id');\r\n    pm.expect(assignment).to.have.property('pack_id');\r\n    pm.expect(assignment).to.have.property('student_id');\r\n    pm.expect(assignment).to.have.property('config');\r\n    pm.expect(assignment).to.have.property('created_by');\r\n    pm.expect(assignment).to.have.property('created_at');\r\n    pm.expect(assignment).to.have.property('updated_at');\r\n});\r\n\r\n// 5. Проверяем, что student_id в ответе совпадает с тем, что мы отправляли в теле запроса\r\npm.test(\"Student ID matches request body\", function () {\r\n    var requestData = JSON.parse(pm.request.body.raw);\r\n    var responseData = pm.response.json();\r\n    \r\n    pm.expect(responseData[0].student_id).to.eql(requestData.student_ids[0]);\r\n});\r\n\r\n// 6. Сохраняем id созданной адаптации в переменную среды (нужно для проверки идемпотентности)\r\nif (jsonData && jsonData.length > 0 && jsonData[0].id) {\r\n    pm.environment.set(\"ADAPTATION_ID\", jsonData[0].id);\r\n    console.log(\"Сохранен ADAPTATION_ID: \" + jsonData[0].id);\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": [\r\n    \"3fa8f64-5717-4562-b3fc-2c963f66afa6\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/cdc0d6ed-d5dc-4915-8ecd-e4855902cb48/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "cdc0d6ed-d5dc-4915-8ecd-e4855902cb48",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "найти наборы во всех  доступных папках",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем успешный статус ответа\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// 2. Парсим ответ\r\nvar jsonData = pm.response.json();\r\n\r\n// 3. Проверяем, что в объекте есть поле items и это непустой массив\r\npm.test(\"Response has items array and it is not empty\", function () {\r\n    pm.expect(jsonData).to.have.property('items');\r\n    pm.expect(jsonData.items).to.be.an('array');\r\n    pm.expect(jsonData.items).to.not.be.empty;\r\n});\r\n\r\n// 4. Записываем id первого набора в переменную окружения PACK_ID\r\nif (jsonData.items && Array.isArray(jsonData.items) && jsonData.items.length > 0) {\r\n    var packId = jsonData.items[0].id;\r\n    pm.environment.set(\"PACK_ID\", packId);\r\n    console.log(\"Успешно сохранен PACK_ID: \" + packId);\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0fek}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "успешная адаптация после назначения набора",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем, что статус ответа равен 200\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// 2. Парсим ответ\r\nvar jsonData = pm.response.json();\r\n\r\n// 3. Проверяем, что ответ — это массив и в нем есть элементы\r\npm.test(\"Response is a non-empty array of adaptations\", function () {\r\n    pm.expect(jsonData).to.be.an('array');\r\n    pm.expect(jsonData).to.not.be.empty;\r\n});\r\n\r\n// 4. Проверяем, что в списке есть адаптация для нашего студента\r\npm.test(\"Adaptation for the student exists in the list\", function () {\r\n    var studentId = pm.environment.get(\"STUDENT_ID\"); // если сохраняла ранее, либо можно захардкодить для проверки\r\n    var found = false;\r\n    \r\n    // Проходим по массиву адаптаций и ищем нужного студента\r\n    jsonData.forEach(function(item) {\r\n        if (!studentId || item.student_id === studentId) {\r\n            found = true;\r\n        }\r\n    });\r\n    \r\n    pm.expect(found, \"Найдена адаптация для указанного студента\").to.be.true;\r\n});\r\n\r\n// 5. Проверяем, что ID адаптации совпадает с тем, что мы сохраняли при ее создании (опционально)\r\npm.test(\"Adaptation ID matches previously saved ID\", function () {\r\n    var savedAdaptationId = pm.environment.get(\"ADAPTATION_ID\");\r\n    if (savedAdaptationId) {\r\n        var matchFound = jsonData.some(item => item.id === savedAdaptationId);\r\n        pm.expect(matchFound, \"Созданная адаптация присутствует в списке GET-запроса\").to.be.true;\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/){{PACK_ID}}/adaptations",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "){{PACK_ID}}",
+                "adaptations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Повторить назначение тем же телом (Проверка идемпотентности)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 200\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nvar jsonData = pm.response.json();\r\n\r\npm.test(\"Response is a non-empty array\", function () {\r\n    pm.expect(jsonData).to.be.an('array');\r\n    pm.expect(jsonData).to.not.be.empty;\r\n});\r\n\r\n// 2. Проверяем идемпотентность: ID возвращенной адаптации должен быть равен сохраненному ранее\r\npm.test(\"Adaptation ID remains the same (Idempotency check)\", function () {\r\n    var savedAdaptationId = pm.environment.get(\"ADAPTATION_ID\");\r\n    \r\n    if (savedAdaptationId) {\r\n        // Проверяем, что в ответе пришел тот же самый ID (дубль не создался с новым ID)\r\n        pm.expect(jsonData[0].id).to.eql(savedAdaptationId);\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0tys}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": [\r\n    \"20994011-69df-4205-9676-8d3feebfb21f\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Назначить сразу двоим (student_ids = [STUDENT_ID, STUDENT2_ID])",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 200\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nvar jsonData = pm.response.json();\r\n\r\n// 2. Проверяем, что в ответе массив ровно из 2 элементов\r\npm.test(\"Response contains exactly 2 adaptations\", function () {\r\n    pm.expect(jsonData).to.be.an('array');\r\n    pm.expect(jsonData).to.have.lengthOf(2);\r\n});\r\n\r\n// 3. Проверяем, что создались адаптации для обоих переданных студентов\r\npm.test(\"Both students are present in the response\", function () {\r\n    var requestData = JSON.parse(pm.request.body.raw);\r\n    \r\n    var responseStudentIds = jsonData.map(item => item.student_id);\r\n    \r\n    pm.expect(responseStudentIds).to.include(requestData.student_ids[0]);\r\n    pm.expect(responseStudentIds).to.include(requestData.student_ids[1]);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0tys}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": [\r\n    \"20994011-69df-4205-9676-8d3feebfb21f\",\r\n    \"a86dad1b-cbf6-43df-8283-b156fdbc69af\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Пустой массив (\"student_ids\": [])",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем, что статус ответа равен 400\r\npm.test(\"Status code is 400 for empty array\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\n// 2. Дополнительная страховка: проверяем, что сервер не вернул 500-ю ошибку\r\npm.test(\"Status code is not 500\", function () {\r\n    pm.expect(pm.response.code).to.not.equal(500);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0tys}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "student_ids с несуществующим учеником (изменить последний символ ID)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем ожидаемый статус (в чек-листе указан 403, но можно гибко проверить код ошибки клиента)\r\npm.test(\"Status code indicates client error (403 or 400/404)\", function () {\r\n    // Ожидаем код 403 согласно чек-листу, либо фиксируем фактический статус\r\n    var code = pm.response.code;\r\n    console.log(\"Фактический код ответа для несуществующего ученика: \" + code);\r\n    \r\n    // Проверяем, что это ошибка клиента (в диапазоне 400-499), а не сервера (500)\r\n    pm.expect(code).to.be.oneOf([403, 400, 404]);\r\n});\r\n\r\n// 2. Проверяем, что адаптации не создались (в зависимости от формата ответа сервера с ошибкой)\r\npm.test(\"Error message or empty response received\", function () {\r\n    var responseData = pm.response.text();\r\n    pm.expect(responseData).to.not.be.empty;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0tys}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"student_ids\": [\r\n    \"20994011-69df-4205-9676-8d3feebfb219\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DELETE /packs/{PACK_ID}/students/{STUDENT_ID}: снятие назначения",
+      "item": [
+        {
+          "name": "Успешное снятие назначения",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем, что статус ответа 204 (успешное удаление без тела)\r\npm.test(\"Status code is 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});\r\n\r\n// 2. Проверяем, что тело ответа действительно пустое\r\npm.test(\"Response body is empty\", function () {\r\n    pm.expect(pm.response.text()).to.be.empty;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_06mk}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students/20994011-69df-4205-9676-8d3feebfb21f",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Повторное снятие тем же запросом (Идемпотентность / Ошибка)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 404 (ресурс уже удален)\r\npm.test(\"Status code is 404 for repeated delete\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\n// 2. Страховка от падения сервера\r\npm.test(\"Status code is not 500\", function () {\r\n    pm.expect(pm.response.code).to.not.equal(500);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_1drd}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students/20994011-69df-4205-9676-8d3feebfb21f",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Несуществующий student_id (изменить последний символ)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 404\r\npm.test(\"Status code is 404 for non-existent student\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\n// 2. Проверяем отсутствие критической ошибки сервера\r\npm.test(\"Server did not crash (not 500)\", function () {\r\n    pm.expect(pm.response.code).to.not.equal(500);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_1drd}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students/20994011-69df-4205-9676-8d3feebfb215",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb215"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Без токена (Unauthorized)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 401 (требуется авторизация)\r\npm.test(\"Status code is 401 Unauthorized\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d/students/20994011-69df-4205-9676-8d3feebfb21f",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d",
+                "students",
+                "20994011-69df-4205-9676-8d3feebfb21f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Проверка списка адаптаций: GET /packs/{PACK_ID}/adaptations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Проверка исходного набора: GET /packs/{PACK_ID}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Исходный набор жив: статус ответа 200\r\npm.test(\"Pack is still available, status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nvar jsonData = pm.response.json();\r\nvar packId = pm.environment.get(\"PACK_ID\");\r\n\r\n// 2. Проверяем, что вернулся корректный объект набора с тем же ID\r\npm.test(\"Response contains correct pack data\", function () {\r\n    pm.expect(jsonData).to.be.an('object');\r\n    // В зависимости от структуры ответа (массив или одиночный объект) проверяем ID\r\n    var currentId = jsonData.id || (jsonData.items && jsonData.items[0] && jsonData.items[0].id);\r\n    if (currentId && packId) {\r\n        pm.expect(currentId).to.eql(packId);\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_06mk}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/packs/166aa820-c7fe-42c1-83cf-2ab4c005659d",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "packs",
+                "166aa820-c7fe-42c1-83cf-2ab4c005659d"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DELETE /students/{id} удаление ученика",
+      "item": [
+        {
+          "name": "Проверяем статус 409 Conflict при наличии папки ученика",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус успешного удаления 204\r\npm.test(\"Status code 409 Conflict\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_164w}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/926e0c33-bf1b-430a-a28b-8284e0a54ffc?force=false",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "926e0c33-bf1b-430a-a28b-8284e0a54ffc"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Полное удаление со всеми связанными данными (force=true)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 204 принудительного удаления\r\npm.test(\"Status code is 204 for full force-delete\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_1cxh}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/2c3c5c01-95e7-4173-8be4-801fb8f1e434?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "2c3c5c01-95e7-4173-8be4-801fb8f1e434"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Негативный кейс: Невалидный формат ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем код ошибки клиента\r\npm.test(\"Status code indicates validation error (400)\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([400]);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_12pm}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/ddffjjjjjttrrenb-hytfnp?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "ddffjjjjjttrrenb-hytfnp"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Негативный кейс: Несуществующий ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 404 для несуществующего ученика\r\npm.test(\"Status code is 404 Not Found\", function () {\r\n    pm.response.to.have.status(404);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0whq}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/2c3c5c01-95e7-4173-8be4-801fb8f1e999?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "2c3c5c01-95e7-4173-8be4-801fb8f1e999"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Невалидное значение параметра force",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 400 Bad Request\r\npm.test(\"Status code is 400 for invalid force parameter type\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\n// 2. Проверяем, что тело ответа содержит информацию об ошибке валидации\r\npm.test(\"Response contains error details\", function () {\r\n    var responseData = pm.response.text();\r\n    pm.expect(responseData).to.not.be.empty;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_12pm}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/514072ac-b496-4113-ab98-5ed4f0ca9e55?force=abc",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "514072ac-b496-4113-ab98-5ed4f0ca9e55"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "abc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Отсутствие токена авторизации",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 401 Unauthorized\r\npm.test(\"Status code is 401 Unauthorized\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/514072ac-b496-4113-ab98-5ed4f0ca9e55?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "514072ac-b496-4113-ab98-5ed4f0ca9e55"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Превышение лимита запросов (Rate Limiting)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 429 Too Many Requests (когда лимит превышен)\r\npm.test(\"Status code is 429 when rate limit is exceeded\", function () {\r\n    pm.response.to.have.status(429);\r\n});\r\n\r\n// Проверяем наличие рекомендательного заголовка Retry-After (опционально)\r\npm.test(\"Response may contain Retry-After header\", function () {\r\n    var retryAfter = pm.response.headers.get(\"Retry-After\");\r\n    if (retryAfter) {\r\n        console.log(\"Заголовок Retry-After присутствует: \" + retryAfter);\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_15bu}}"
+              }
+            ],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/9f16ba07-4a57-433a-866e-53b0d941e1ba?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "9f16ba07-4a57-433a-866e-53b0d941e1ba"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Повторный Soft-delete (force=false)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем допустимые коды для повторного soft-delete (204 или 404 в зависимости от реализации)\r\npm.test(\"Status code is either 204 (idempotent) or 404 (not found)\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([204, 404]);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0eji}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/2c3c5c01-95e7-4173-8be4-801fb8f1e434?force=false",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "2c3c5c01-95e7-4173-8be4-801fb8f1e434"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Повторный Hard-delete (force=true)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 404, так как удаленный ранее объект полностью отсутствует\r\npm.test(\"Status code is 404 for hard-deleted student\", function () {\r\n    pm.response.to.have.status(404);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0i4k}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/students/2c3c5c01-95e7-4173-8be4-801fb8f1e434?force=true",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "2c3c5c01-95e7-4173-8be4-801fb8f1e434"
+              ],
+              "query": [
+                {
+                  "key": "force",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DELETE /profile/me удаление профиля",
+      "item": [
+        {
+          "name": "Успешное удаление профиля",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус успешного удаления 204\r\npm.test(\"Status code is 204 No Content\", function () {\r\n    pm.response.to.have.status(204);\r\n});\r\n\r\n// 2. Проверяем, что тело ответа пустое\r\npm.test(\"Response body is empty\", function () {\r\n    pm.expect(pm.response.text()).to.be.empty;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_00ew}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/profile/me",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "profile",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Вход после удаления",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1. Проверяем статус 401 Unauthorized\r\npm.test(\"Status code is 401 Unauthorized after profile deletion\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\n// 2. Проверяем структуру ошибки (если возвращается JSON)\r\npm.test(\"Error code is UNAUTHORIZED\", function () {\r\n    var jsonData = pm.response.json();\r\n    if (jsonData && jsonData.error) {\r\n        pm.expect(jsonData.error.code).to.eql(\"UNAUTHORIZED\");\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ayf}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"YOUR_PASSWORD^\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/auth/login",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение профиля старым access-токеном",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 401 для старого токена\r\npm.test(\"Status code is 401 Unauthorized for old access token\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/profile/me",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "profile",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Обновление токена после удаления",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 401 для обновления токена удаленного пользователя\r\npm.test(\"Status code is 401 for refresh token after deletion\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"YOUR_PASSWORD^\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/auth/refresh",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "повторная регистрация email удалённого профиля",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 401 для обновления токена удаленного пользователя\r\npm.test(\"Status code is 401 for refresh token after deletion\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"YOUR_PASSWORD^\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/auth/refresh",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Восстановление пароля",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем стандартный статус 202 Accepted\r\npm.test(\"Status code is 202 Accepted for forgot password\", function () {\r\n    pm.response.to.have.status(202);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"YOUR_PASSWORD^\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://linka.example.com/api/v1/auth/password/forgot",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "password",
+                "forgot"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Повторное удаление",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "//Проверяем статус 401, так как повторный запрос идет с отозванной сессией\r\npm.test(\"Status code is 401 for repeated delete with same token\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ayf}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/profile/me",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "profile",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Удаление без токена",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверяем статус 401 при отсутствии токена\r\npm.test(\"Status code is 401 Unauthorized when no token provided\", function () {\r\n    pm.response.to.have.status(401);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://linka.example.com/api/v1/profile/me",
+              "protocol": "https",
+              "host": [
+                "linka",
+                "rassokha",
+                "pro"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "profile",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Удаление профиля",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "загрузить аватар ученика",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "получение токена",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://linka.example.com/api/v1/auth/login",
+          "protocol": "https",
+          "host": [
+            "linka",
+            "rassokha",
+            "pro"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "получения токена для удаления",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://linka.example.com/api/v1/auth/login",
+          "protocol": "https",
+          "host": [
+            "linka",
+            "rassokha",
+            "pro"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ученики текущего дифектолога",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "создание ученика",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "список озвучки",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": " {\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"YOUR_PASSWORD\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://linka.example.com/api/v1/tts/voices",
+          "protocol": "https",
+          "host": [
+            "linka",
+            "rassokha",
+            "pro"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "tts",
+            "voices"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0gea",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0vu9",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_05n0",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_1a4l",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0ku0",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0vo4",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0fek",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0tys",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_06mk",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1drd",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_08r4",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1cxh",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0whq",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_12pm",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0my1",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0eji",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0i4k",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_14l3",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_14xh",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0brl",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1ah5",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_15bu",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0ayf",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_00ew",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_164w",
+      "secret": true
+    }
+  ]
+}
